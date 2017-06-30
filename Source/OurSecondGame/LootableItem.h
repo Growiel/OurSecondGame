@@ -4,10 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "InteractableInterface.h"
+#include "Runtime/Engine/Classes/Engine/DataTable.h"
+#include "ItemData.h"
+#include "Runtime/Core/Public/Math/TransformNonVectorized.h"
 #include "LootableItem.generated.h"
 
 UCLASS()
-class OURSECONDGAME_API ALootableItem : public AActor
+class OURSECONDGAME_API ALootableItem : public AActor, public IInteractableInterface
 {
 	GENERATED_BODY()
 	
@@ -16,9 +20,13 @@ public:
 	ALootableItem();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FDataTableRowHandle ItemHandle;
 
-	
-	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly)
+	UStaticMeshComponent* StaticMeshComponent = nullptr;
+
+	virtual void Interact_Implementation(AActor* InteractedBy) override;
+
+	virtual void OnConstruction(const FTransform& Transform);
 };

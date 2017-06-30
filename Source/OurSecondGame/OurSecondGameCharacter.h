@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "ItemData.h"
 #include "OurSecondGameCharacter.generated.h"
 
 UCLASS()
@@ -19,6 +20,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	void Interact();
+
 	//handles moving forward/backward
 	UFUNCTION()
 	void MoveForward(float Val);
@@ -27,17 +31,46 @@ protected:
 	UFUNCTION()
 	void MoveRight(float Val);
 	
-	/**Enables a character to find LootableItems. */
-	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class UItemFinder* ItemFinderComponent;
+	// Return hit for first item in reach
+	void GetFirstInteractableInReach();
+
+	// Returns current start of reach line
+	FVector GetReachLineStart();
+
+	// Returns current end of reach line
+	FVector GetReachLineEnd();
+
+	// How far can the user reach in cm (arms length)
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	float Reach = 100.f;
+
+	TArray<FItemData> Inventory;
+
+	AActor* InteractableActor = nullptr;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;	
 
-	
-	
+	// Adds an item to the inventory
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	bool AddToInventory(const FItemData& Item);
+
+	// Checks if an Item is in the Inventory
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	bool IsInInventory(const FItemData& Item);
+
+	// Removes an Item from the Inventory
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	void RemoveFromInventory(const FItemData& Item);
+
+	// Returns the entire Inventory
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	TArray<FItemData> GetInventory();
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Interact")
+	void OnInteract(AActor* InteractedActor);
 };
