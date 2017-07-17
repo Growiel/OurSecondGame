@@ -82,27 +82,27 @@ void AOurSecondGameCharacter::MoveRight(float Value)
 	}
 }
 
-bool AOurSecondGameCharacter::AddToInventory(const FItemData& Item)
+bool AOurSecondGameCharacter::AddToInventory(FName ItemName)
 {
 	// We can only have the Item once in the Inventory. If already present we return false.
-	if (IsInInventory(Item)) {
+	if (IsInInventory(ItemName)) {
 		return false;
 	}
-	Inventory.AddUnique(Item);
+	Inventory.AddUnique(ItemName);
 	return true;
 }
 
-bool AOurSecondGameCharacter::IsInInventory(const FItemData& Item)
+bool AOurSecondGameCharacter::IsInInventory(FName ItemName)
 {
-	return Inventory.Contains(Item);
+	return Inventory.Contains(ItemName);
 }
 
-void AOurSecondGameCharacter::RemoveFromInventory(const FItemData& Item)
+void AOurSecondGameCharacter::RemoveFromInventory(FName ItemName)
 {
-	Inventory.Remove(Item);
+	Inventory.Remove(ItemName);
 }
 
-TArray<FItemData> AOurSecondGameCharacter::GetInventory()
+TArray<FName> AOurSecondGameCharacter::GetInventory()
 {
 	return Inventory;
 }

@@ -69,11 +69,10 @@ void ALootableItem::Interact_Implementation(AActor* InteractedBy)
 	/// Check if OurSecondGamePlayerCharacter instance
 	AOurSecondGameCharacter* Character = Cast<AOurSecondGameCharacter>(InteractedBy);
 	if (Character) {
-		/// Put in inventory
-		FItemData* Row = ItemHandle.GetRow<FItemData>(TEXT("FindMesh"));
-
-		if (Character->AddToInventory(*Row)) {
-			UE_LOG(LogTemp, Display, TEXT("Added Item: %s"), *Row->Name.ToString());
+		if (Character->AddToInventory(ItemHandle.RowName)) {
+			// Some items might need to do more than JUST be looted, allow them do to it here.
+			OnLooted(InteractedBy);
+			UE_LOG(LogTemp, Display, TEXT("Added Item: %s"), *ItemHandle.RowName.ToString());
 			Destroy();
 		}
 	}

@@ -19,6 +19,9 @@ public:
 	// Sets default values for this actor's properties
 	ALootableItem();
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Interact")
+	void OnLooted(AActor* InteractedBy);
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FDataTableRowHandle ItemHandle;

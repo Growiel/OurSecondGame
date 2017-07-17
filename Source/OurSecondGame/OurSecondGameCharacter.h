@@ -44,7 +44,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Interact")
 	float Reach = 100.f;
 
-	TArray<FItemData> Inventory;
+	TArray<FName> Inventory;
 
 	AActor* InteractableActor = nullptr;
 
@@ -57,19 +57,19 @@ public:
 
 	// Adds an item to the inventory
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	bool AddToInventory(const FItemData& Item);
+	bool AddToInventory(FName ItemName);
 
 	// Checks if an Item is in the Inventory
 	UFUNCTION(BlueprintPure, Category = "Inventory")
-	bool IsInInventory(const FItemData& Item);
+	bool IsInInventory(FName ItemName);
 
 	// Removes an Item from the Inventory
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void RemoveFromInventory(const FItemData& Item);
+	void RemoveFromInventory(FName ItemName);
 
 	// Returns the entire Inventory
 	UFUNCTION(BlueprintPure, Category = "Inventory")
-	TArray<FItemData> GetInventory();
+	TArray<FName> GetInventory();
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Interact")
 	void OnInteract(AActor* InteractedActor);
