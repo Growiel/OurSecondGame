@@ -15,7 +15,7 @@ ALootableItem::ALootableItem()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Get the BP datatable
-	ConstructorHelpers::FObjectFinder<UDataTable> ItemData_DataTable(TEXT("DataTable'/Game/Inventory/ItemData_DataTable.ItemData_DataTable'"));
+	ConstructorHelpers::FObjectFinder<UDataTable> ItemData_DataTable(TEXT("DataTable'/Game/Inventory/ItemData.ItemData'"));
 
 	if (ItemData_DataTable.Succeeded()) {
 		// Force the Datatable to be the ItemInfo one (so we don't need to manually select it each time in the BP side)
