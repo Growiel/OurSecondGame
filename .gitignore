@@ -78,5 +78,4 @@ DerivedDataCache/*
 
 # StarterContent
 Content/StarterContent
-Content/Inventory/UMG/ItemViewer.uasset
-*.uasset
+
