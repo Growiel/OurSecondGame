@@ -134,6 +134,11 @@ void AOurSecondGameCharacter::GetFirstInteractableInReach()
 	/// If we hit something
 	if (ActorHit)
 	{
+		/// If it's the same actor we were already looking at, do nothing
+		if (ActorHit == InteractableActor) 
+		{
+			return;
+		}
 		/// Check that the something implements our interface
 		if (ActorHit->GetClass()->ImplementsInterface(UInteractableInterface::StaticClass())) {
 			/// Store it!
@@ -198,6 +203,7 @@ FVector AOurSecondGameCharacter::GetReachLineEnd()
 		OUT PlayerViewPointRotation
 	);
 
+	LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector()*Reach;
 	return PlayerViewPointLocation + PlayerViewPointRotation.Vector()*Reach;
 }
 

@@ -77,4 +77,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Interact")
 	void OnInteract(AActor* InteractedActor);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interact")
+	FVector LineTraceEnd;
 };
