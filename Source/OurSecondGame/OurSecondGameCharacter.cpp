@@ -138,12 +138,40 @@ void AOurSecondGameCharacter::GetFirstInteractableInReach()
 		if (ActorHit->GetClass()->ImplementsInterface(UInteractableInterface::StaticClass())) {
 			/// Store it!
 			InteractableActor = ActorHit;
+			/// Highlight it
+			HighlightActor(InteractableActor);
 		} else if(InteractableActor){
-			InteractableActor = nullptr;
+			/// Stop highlighting
+			StopHighlightActor(InteractableActor);
+			InteractableActor = nullptr;			
 		}
 	}
 	else if (InteractableActor) {
+		/// Stop highlighting
+		StopHighlightActor(InteractableActor);
 		InteractableActor = nullptr;
+	}
+}
+
+void AOurSecondGameCharacter::HighlightActor(AActor* Actor)
+{
+	if (Actor) {
+		UStaticMeshComponent* StaticMeshComponent = Actor->FindComponentByClass<UStaticMeshComponent>();
+		if (!StaticMeshComponent->bRenderCustomDepth)
+		{
+			StaticMeshComponent->SetRenderCustomDepth(true);
+		}
+	}
+}
+
+void AOurSecondGameCharacter::StopHighlightActor(AActor* Actor)
+{
+	if (Actor) {
+		UStaticMeshComponent* StaticMeshComponent = Actor->FindComponentByClass<UStaticMeshComponent>();
+		if (StaticMeshComponent->bRenderCustomDepth)
+		{
+			StaticMeshComponent->SetRenderCustomDepth(false);
+		}
 	}
 }
 

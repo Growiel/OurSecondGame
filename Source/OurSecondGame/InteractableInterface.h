@@ -23,5 +23,4 @@ class OURSECONDGAME_API IInteractableInterface
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interactable")
 	void Interact(AActor* InteractedBy);
-	
 };

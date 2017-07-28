@@ -34,6 +34,10 @@ protected:
 	// Return hit for first item in reach
 	void GetFirstInteractableInReach();
 
+	void HighlightActor(AActor* Actor);
+
+	void StopHighlightActor(AActor* Actor);
+
 	// Returns current start of reach line
 	FVector GetReachLineStart();
 
@@ -42,7 +46,7 @@ protected:
 
 	// How far can the user reach in cm (arms length)
 	UPROPERTY(EditAnywhere, Category = "Interact")
-	float Reach = 100.f;
+	float Reach = 200.f;
 
 	TArray<FName> Inventory;
 
